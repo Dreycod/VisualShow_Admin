@@ -8,4 +8,15 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="g - Copier\**" />
+    <EmbeddedResource Remove="g - Copier\**" />
+    <None Remove="g - Copier\**" />
+    <Page Remove="g - Copier\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="66*"/>
+            <RowDefinition Height="151*"/>
+        </Grid.RowDefinitions>
+        <ComboBox Name="CB_Etages" Margin="56,54,571,12" ContextMenuOpening="ComboBox_ContextMenuOpening"/>
 
     </Grid>
 </Window>
