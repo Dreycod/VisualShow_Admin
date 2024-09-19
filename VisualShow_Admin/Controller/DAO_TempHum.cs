@@ -17,7 +17,7 @@ namespace VisualShow_Admin.Controller
             try
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync("https://drey.alwaysdata.net/Temp_Hum/" + id);
+                HttpResponseMessage response = await client.GetAsync("https://drey.alwaysdata.net/getTemp_Hum/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();

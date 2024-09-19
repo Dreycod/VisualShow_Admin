@@ -12,7 +12,7 @@ namespace VisualShow_Admin.Controller
 {
     public class DAO_Air
     {
-        public async Task<List<Air>> GetEcrans(string id)
+        public async Task<List<Air>> GetAir(string id)
         {
             try
             {

@@ -19,10 +19,26 @@ namespace VisualShow_Admin
     public partial class MainWindow : Window
     {
         DAO_Etages dao_etages;
+        DAO_Ecrans dao_ecrans;
+        DAO_Events dao_events;
+        DAO_Air dao_air;
+        DAO_Salles dao_salles;
+        DAO_Users dao_users;
+        DAO_Son DAO_Son;
+        DAO_TempHum DAO_TempHum;
+
         public MainWindow()
         {
             InitializeComponent();
             dao_etages = new DAO_Etages();
+            dao_ecrans = new DAO_Ecrans();
+            dao_events = new DAO_Events();
+            dao_air = new DAO_Air();
+            dao_salles = new DAO_Salles();
+            dao_users = new DAO_Users();
+            DAO_Son = new DAO_Son();
+            DAO_TempHum = new DAO_TempHum();
+
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -32,8 +48,8 @@ namespace VisualShow_Admin
 
         private async void ComboBox_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            var reponse = await dao_etages.GetEtages();
-            MessageBox.Show(reponse[0].name);
+
+            var response = await dao_etages.UpdateEtage("12", "Etage updated");
         }
     }
 }

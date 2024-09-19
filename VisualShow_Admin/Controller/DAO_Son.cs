@@ -12,7 +12,7 @@ namespace VisualShow_Admin.Controller
 {
     public class DAO_Son
     {
-        public async Task<List<Son>> GetTemp_Hum(string id)
+        public async Task<List<Son>> GetSon(string id)
         {
             try
             {
