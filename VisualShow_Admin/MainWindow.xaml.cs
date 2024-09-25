@@ -24,8 +24,8 @@ namespace VisualShow_Admin
         DAO_Air dao_air;
         DAO_Salles dao_salles;
         DAO_Users dao_users;
-        DAO_Son DAO_Son;
-        DAO_TempHum DAO_TempHum;
+        DAO_Son dao_son;
+        DAO_TempHum dao_temphum;
 
         public MainWindow()
         {
@@ -36,8 +36,8 @@ namespace VisualShow_Admin
             dao_air = new DAO_Air();
             dao_salles = new DAO_Salles();
             dao_users = new DAO_Users();
-            DAO_Son = new DAO_Son();
-            DAO_TempHum = new DAO_TempHum();
+            dao_son = new DAO_Son();
+            dao_temphum = new DAO_TempHum();
 
         }
 
@@ -48,8 +48,15 @@ namespace VisualShow_Admin
 
         private async void ComboBox_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
+            var etages = await dao_etages.GetEtages();
+            var ecrans = await dao_ecrans.GetEcrans();
+            var events = await dao_events.GetEvents();
+            var salles = await dao_salles.GetSalles();
+            var users = await dao_users.GetUsers();
+            var son = await dao_son.GetSon("6");
+            var tempHum = await dao_temphum.getTemp_Hum("6");
 
-            var response = await dao_etages.UpdateEtage("12", "Etage updated");
         }
+
     }
 }

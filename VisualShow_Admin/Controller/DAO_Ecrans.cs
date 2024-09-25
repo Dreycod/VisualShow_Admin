@@ -87,12 +87,13 @@ namespace VisualShow_Admin.Controller
                 return null;
             }
         }
-        public async Task<Ecrans> AddEcran(string name, DateTime date, int IsOn)
+        public async Task<Ecrans> AddEcran(string name, DateTime date, string IsOn, string id_salle)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                string json = JsonConvert.SerializeObject(new { name = name, date = date, IsOn = IsOn });
+                string formattedDate = date.ToString("yyyy-MM-dd HH:mm:ss");
+                string json = JsonConvert.SerializeObject(new { name = name, lastUpdate = formattedDate, IsOn = IsOn, id_salle = id_salle });
                 MessageBox.Show(json);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 MessageBox.Show(content.ToString());
@@ -115,12 +116,13 @@ namespace VisualShow_Admin.Controller
                 return null;
             }
         }
-        public async Task<Ecrans> UpdateEtage(string id, string name, DateTime date, int IsOn)
+        public async Task<Ecrans> UpdateEcran(string id, string name, DateTime date, string IsOn, string id_salle)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                string json = JsonConvert.SerializeObject(new { name = name, date = date, IsOn = IsOn });
+                string formattedDate = date.ToString("yyyy-MM-dd HH:mm:ss");
+                string json = JsonConvert.SerializeObject(new { name = name, lastUpdate = formattedDate, IsOn = IsOn, id_salle = id_salle });
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PutAsync("https://drey.alwaysdata.net/UpdateEcran/" + id, content).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
@@ -142,7 +144,7 @@ namespace VisualShow_Admin.Controller
             }
 
         }
-        public async Task<Ecrans> DeleteEtage(string id)
+        public async Task<Ecrans> DeleteEcran(string id)
         {
             try
             {

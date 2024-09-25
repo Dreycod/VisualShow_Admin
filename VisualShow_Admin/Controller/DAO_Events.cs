@@ -42,7 +42,7 @@ namespace VisualShow_Admin.Controller
             try
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync("https://drey.alwaysdata.net/getUserById/" + id);
+                HttpResponseMessage response = await client.GetAsync("https://drey.alwaysdata.net/getEventById/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
@@ -51,8 +51,32 @@ namespace VisualShow_Admin.Controller
                         MessageBox.Show("Error: " + content);
                         return null;
                     }
-                    Users user = JsonConvert.DeserializeObject<Users>(content);
-                    return user;
+                    Events events = JsonConvert.DeserializeObject<Events>(content);
+                    return events;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<Events> GetEventByName(string name)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.GetAsync("https://drey.alwaysdata.net/getEventByName/" + name);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (content.Contains("error"))
+                    {
+                        MessageBox.Show("Error: " + content);
+                        return null;
+                    }
+                    Events events = JsonConvert.DeserializeObject<Events>(content);
+                    return events;
 
                 }
                 return null;
@@ -62,41 +86,17 @@ namespace VisualShow_Admin.Controller
                 return null;
             }
         }
-        public async Task<Users> GetUserByName(string name)
+        public async Task<Events> AddEvent(string name, DateTime date)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync("https://drey.alwaysdata.net/getUserByName/" + name);
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    if (content.Contains("error"))
-                    {
-                        MessageBox.Show("Error: " + content);
-                        return null;
-                    }
-                    Users user = JsonConvert.DeserializeObject<Users>(content);
-                    return user;
-
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-        public async Task<Users> AddUser(string name, string type, DateTime date_creation, string mdp)
-        {
-            try
-            {
-                HttpClient client = new HttpClient();
-                string json = JsonConvert.SerializeObject(new { name = name, type = type, date_creation = date_creation, mdp = mdp });
+                string formattedDate = date.ToString("yyyy-MM-dd HH:mm:ss");
+                string json = JsonConvert.SerializeObject(new { name = name, date = formattedDate });
                 MessageBox.Show(json);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 MessageBox.Show(content.ToString());
-                HttpResponseMessage response = await client.PostAsync("https://drey.alwaysdata.net/AddUser", content).ConfigureAwait(false);
+                HttpResponseMessage response = await client.PostAsync("https://drey.alwaysdata.net/AddEvent", content).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
@@ -105,8 +105,8 @@ namespace VisualShow_Admin.Controller
                         MessageBox.Show("Error: " + result);
                         return null;
                     }
-                    Users user = JsonConvert.DeserializeObject<Users>(result);
-                    return user;
+                    Events events = JsonConvert.DeserializeObject<Events>(result);
+                    return events;
                 }
                 return null;
             }
@@ -115,14 +115,15 @@ namespace VisualShow_Admin.Controller
                 return null;
             }
         }
-        public async Task<Users> UpdateUser(int id, string name, string type, DateTime date_creation, string mdp)
+        public async Task<Events> UpdateEvent(int id, string name, DateTime date)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                string json = JsonConvert.SerializeObject(new { name = name, type = type, date_creation = date_creation, mdp = mdp });
+                string formattedDate = date.ToString("yyyy-MM-dd HH:mm:ss");
+                string json = JsonConvert.SerializeObject(new { name = name, date = formattedDate });
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync("https://drey.alwaysdata.net/UpdateUser/" + id, content).ConfigureAwait(false);
+                HttpResponseMessage response = await client.PutAsync("https://drey.alwaysdata.net/UpdateEvent/" + id, content).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
@@ -131,8 +132,8 @@ namespace VisualShow_Admin.Controller
                         MessageBox.Show("Error: " + result);
                         return null;
                     }
-                    Users user = JsonConvert.DeserializeObject<Users>(result);
-                    return user;
+                    Events events = JsonConvert.DeserializeObject<Events>(result);
+                    return events;
                 }
                 return null;
             }
@@ -142,12 +143,12 @@ namespace VisualShow_Admin.Controller
             }
 
         }
-        public async Task<Users> DeleteUser(string id)
+        public async Task<Events> DeleteEvent(string id)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.DeleteAsync("https://drey.alwaysdata.net/DeleteUser/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("https://drey.alwaysdata.net/DeleteEvent/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
@@ -156,8 +157,8 @@ namespace VisualShow_Admin.Controller
                         MessageBox.Show("Error: " + content);
                         return null;
                     }
-                    Users user = JsonConvert.DeserializeObject<Users>(content);
-                    return user;
+                    Events events = JsonConvert.DeserializeObject<Events>(content);
+                    return events;
 
                 }
                 return null;

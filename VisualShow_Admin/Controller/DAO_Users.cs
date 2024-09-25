@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using VisualShow_Admin.Model;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VisualShow_Admin.Controller
 {
@@ -92,7 +93,8 @@ namespace VisualShow_Admin.Controller
             try
             {
                 HttpClient client = new HttpClient();
-                string json = JsonConvert.SerializeObject(new { name = name, type = type, date_creation = date_creation, mdp = mdp });
+                string formattedDate = date_creation.ToString("yyyy-MM-dd HH:mm:ss");
+                string json = JsonConvert.SerializeObject(new { name = name, type = type, date_creation = formattedDate, mdp = mdp });
                 MessageBox.Show(json);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 MessageBox.Show(content.ToString());
@@ -120,7 +122,8 @@ namespace VisualShow_Admin.Controller
             try
             {
                 HttpClient client = new HttpClient();
-                string json = JsonConvert.SerializeObject(new { name = name, type = type, date_creation = date_creation, mdp = mdp });
+                string formattedDate = date_creation.ToString("yyyy-MM-dd HH:mm:ss");
+                string json = JsonConvert.SerializeObject(new { name = name, type = type, date_creation = formattedDate, mdp = mdp });
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PutAsync("https://drey.alwaysdata.net/UpdateUser/" + id, content).ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
