@@ -12,7 +12,7 @@ namespace VisualShow_Admin.Controller
 {
     public class DAO_Air
     {
-        public async Task<Air> GetAir(string id)
+        public async Task<List<Air>> GetAir(string id)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace VisualShow_Admin.Controller
                         MessageBox.Show("Error: " + content);
                         return null;
                     }
-                    Air air = JsonConvert.DeserializeObject<Air>(content);
+                    List<Air> air = JsonConvert.DeserializeObject<List<Air>>(content);
                     return air;
 
                 }

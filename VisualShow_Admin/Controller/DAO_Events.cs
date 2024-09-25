@@ -115,7 +115,7 @@ namespace VisualShow_Admin.Controller
                 return null;
             }
         }
-        public async Task<Events> UpdateEvent(int id, string name, DateTime date)
+        public async Task<Events> UpdateEvent(string id, string name, DateTime date)
         {
             try
             {

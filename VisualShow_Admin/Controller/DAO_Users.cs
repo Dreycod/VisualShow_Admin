@@ -117,7 +117,7 @@ namespace VisualShow_Admin.Controller
                 return null;
             }
         }
-        public async Task<Users> UpdateUser(int id, string name, string type, DateTime date_creation, string mdp)
+        public async Task<Users> UpdateUser(string id, string name, string type, DateTime date_creation, string mdp)
         {
             try
             {
