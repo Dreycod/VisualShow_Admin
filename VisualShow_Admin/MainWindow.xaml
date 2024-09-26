@@ -70,7 +70,7 @@
                   Content="Paramêtres"
                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                   Icon="{ui:SymbolIcon Settings24}"
-                  TargetPageType="{x:Type View:Page_Settings}" Click="NavigationViewItem_Click"/>
+                  TargetPageType="{x:Type View:Page_Settings}" Click="NavigationViewItem_Click" Cursor="Hand"/>
               
             </ui:NavigationView.FooterMenuItems>
 
