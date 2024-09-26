@@ -16,7 +16,7 @@ namespace VisualShow_Admin
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         DAO_Etages dao_etages;
         DAO_Ecrans dao_ecrans;
@@ -40,21 +40,38 @@ namespace VisualShow_Admin
             dao_temphum = new DAO_TempHum();
 
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Border_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            if (e.ChangedButton == System.Windows.Input.MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
 
-        private async void ComboBox_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-            var etages = await dao_etages.GetEtages();
-            var ecrans = await dao_ecrans.GetEcrans();
-            var events = await dao_events.GetEvents();
-            var salles = await dao_salles.GetSalles();
-            var users = await dao_users.GetUsers();
-            var son = await dao_son.GetSon("6");
-            var tempHum = await dao_temphum.getTemp_Hum("6");
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void NavigationViewItem_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 

@@ -9,14 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="g - Copier\**" />
-    <EmbeddedResource Remove="g - Copier\**" />
-    <None Remove="g - Copier\**" />
-    <Page Remove="g - Copier\**" />
+    <Folder Include="Model\" />
+    <Folder Include="Ressources\Images\" />
+    <Folder Include="Service\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="FluentFTP" Version="51.1.0" />
+    <PackageReference Include="WPF-UI" Version="3.0.5" />
+    <PackageReference Include="WPF-UI.Tray" Version="3.0.5" />
   </ItemGroup>
 
 </Project>
