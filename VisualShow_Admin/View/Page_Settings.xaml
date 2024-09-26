@@ -1,0 +1,118 @@
+﻿<Page x:Class="VisualShow_Admin.View.Page_Settings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VisualShow_Admin.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_Settings"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      ui:Design.Background="{DynamicResource TextControlBackground}"
+      >
+
+    <StackPanel Margin="10">
+        <Grid Name="Grid_Informations">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="0" Text="Utilisateur"  Width="120" Margin="10"/>
+            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="1" Text="Mot de passe" Width="120" Margin="10" />
+            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"   Grid.Row="2" Text="FTP Server" Width="120" Margin="10"/>
+            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="3" Text="Dossier Local" Width="120" Margin="10"/>
+            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="4" Text="Dossier Cloud" Width="120" Margin="10"/>
+            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="5" Text="Dossier ETS" Width="120" Margin="10"/>
+
+            <ui:TextBox Grid.Row="0" Grid.Column = "1" HorizontalAlignment="Left"   x:Name="TB_Utilisateur" PlaceholderText="Ex: utilisateur" Width="300" Margin="10"/>
+            <ui:PasswordBox Grid.Row="1" Grid.Column = "1" HorizontalAlignment="Left" x:Name="PB_Mdp" PlaceholderText="Ex: Mdp" Width="300" Margin="10" />
+            <ui:TextBox Grid.Row="2" Grid.Column = "1" HorizontalAlignment="Left" x:Name="TB_FtpServer" PlaceholderText="Ex: ftp.example.hosting.ovh.net" Width="300" Margin="10"/>
+
+            <StackPanel Grid.Row="3" Grid.Column = "1" Margin="10" Orientation="Horizontal">
+                <ui:Button Content="Browse..."  HorizontalAlignment="Left"  Width="100"/>
+                <ui:TextBox Grid.Column = "1" HorizontalAlignment="Left" x:Name="TB_DossierSource" PlaceholderText="Ex: C:\Users\" Width="300" Margin="10,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Grid.Column = "1" Margin="10" Orientation="Horizontal">
+                <!--<ui:Button Content="Browse..."  Click="BrowseButton_Click" HorizontalAlignment="Left"  Width="100"/>-->
+                <ui:TextBox Grid.Column = "1" HorizontalAlignment="Left" x:Name="TB_DossierCloud" PlaceholderText="Ex: /Test/" Width="300" Margin="0"/>
+            </StackPanel>
+
+
+        </Grid>
+
+        <ui:Button x:Name="Save_Btn" HorizontalAlignment="Center" Content="Save"  />
+
+        <ui:TextBlock
+           Margin="0,24,0,8"
+           FontTypography="BodyStrong"
+           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
+           Text="Aide:" />
+
+        <ui:CardExpander ContentPadding="0" >
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBlock
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       FontTypography="Body"
+                       Text="+ Infos" />
+                    <TextBlock
+                       Grid.Row="0"
+                       Grid.RowSpan="2"
+                       Grid.Column="1"
+                       Margin="0,0,16,0"
+                       VerticalAlignment="Center"
+                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                       Text="{Binding ViewModel.AppVersion, Mode=OneWay}" />
+                </Grid>
+
+
+            </ui:CardExpander.Header>
+            <StackPanel>
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Remplissez Les champs suivants pour pouvoir utiliser l'application" />
+                </Grid>
+                <ui:Anchor
+                   Margin="0"
+                   Padding="16"
+                   HorizontalAlignment="Stretch"
+                   HorizontalContentAlignment="Stretch"
+                   Background="Transparent"
+                   BorderThickness="0,1,0,0"
+                   CornerRadius="0"
+                   NavigateUri="https://github.com/Dreycod">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Code Source du Projet" />
+                        <ui:SymbolIcon Grid.Column="1" Symbol="Link24" />
+                    </Grid>
+                </ui:Anchor>
+            </StackPanel>
+        </ui:CardExpander>
+    </StackPanel>
+</Page>
