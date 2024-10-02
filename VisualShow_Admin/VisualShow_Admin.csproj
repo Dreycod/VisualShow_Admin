@@ -9,12 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Service\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <None Remove="Service\**" />
+    <Page Remove="Service\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Ressources\Images\R.jfif" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Service\" />
   </ItemGroup>
 
   <ItemGroup>
