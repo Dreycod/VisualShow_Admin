@@ -24,5 +24,10 @@ namespace VisualShow_Admin.View
         {
             InitializeComponent();
         }
+
+        private void ScreenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

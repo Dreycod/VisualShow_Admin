@@ -24,5 +24,15 @@ namespace VisualShow_Admin.View
         {
             InitializeComponent();
         }
+
+        private void UploadFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BrowseFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

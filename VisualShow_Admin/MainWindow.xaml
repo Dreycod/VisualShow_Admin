@@ -42,6 +42,14 @@
                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"  
                   TargetPageType="{x:Type View:Page_Accueil}" Cursor="Hand"/>
 
+
+                <ui:NavigationViewItem
+                      Name="Analyse_Btn"
+                  Content="Analyse"
+                  Icon="{ui:SymbolIcon Home24}"
+                  Foreground="{DynamicResource TextFillColorPrimaryBrush}"  
+                  TargetPageType="{x:Type View:Page_Analyse}" Cursor="Hand"/>
+                
                 <ui:NavigationViewItem
                       Name="Gestion_Btn"
                   Content="Gestion"

@@ -11,6 +11,44 @@
       Title="Page_Media">
 
     <Grid>
-        
+        <!-- Column and Row Definitions -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <!-- File List Section -->
+            <ColumnDefinition Width="2*"/>
+            <!-- File Upload Section -->
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Main content row -->
+        </Grid.RowDefinitions>
+
+        <!-- File List Section -->
+        <Border BorderBrush="White" BorderThickness="1" Margin="10" 
+                Grid.Column="0" Grid.Row="0">
+            <StackPanel>
+                <ui:TextBlock Text="Files on FTP Server" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+                <ListBox Name="FilesListBox" Background="Black" Foreground="White" BorderThickness="0"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <!-- Files from FTP server will be dynamically added here -->
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <!-- File Upload Section -->
+        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top">
+            <ui:TextBlock Text="Upload a File to FTP Server" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+
+            <!-- File path input and browse button -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <ui:TextBox Name="FilePathTextBox" Width="200"  Foreground="White" FontSize="14" />
+                <ui:Button Content="Browse" Width="80" Height="30" Click="BrowseFile_Click"/>
+            </StackPanel>
+
+            <!-- Upload button -->
+            <ui:Button Content="Upload File" Width="150" Height="40" 
+                    Background="Red" Foreground="White" Click="UploadFile_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

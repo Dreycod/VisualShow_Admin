@@ -24,5 +24,10 @@ namespace VisualShow_Admin.View
         {
             InitializeComponent();
         }
+
+        private void BroadcastMessage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

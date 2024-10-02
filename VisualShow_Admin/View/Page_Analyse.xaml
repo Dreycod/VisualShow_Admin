@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VisualShow_Admin.View"
+      xmlns:oxy="http://oxyplot.org/wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -11,6 +12,63 @@
       Title="Page_Analyse">
 
     <Grid>
-        
+        <!-- Define column and row structure -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- Room selection panel -->
+            <ColumnDefinition Width="2*"/>
+            <!-- Graphs panel -->
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Room selection -->
+            <RowDefinition Height="*"/>
+            <!-- Graphs display -->
+        </Grid.RowDefinitions>
+
+        <!-- Room Selection Section -->
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="20">
+            <ui:TextBlock Text="Select Room to Supervise:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+            <ComboBox Name="RoomComboBox" Width="200" FontSize="16">
+                <ComboBoxItem Content="Living Room"/>
+                <ComboBoxItem Content="Bedroom"/>
+                <ComboBoxItem Content="Kitchen"/>
+                <!-- Add more rooms as needed -->
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Graphs Section -->
+        <Grid Grid.Column="1" Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <!-- Temperature Graph -->
+                <RowDefinition Height="*"/>
+                <!-- Sound Graph -->
+                <RowDefinition Height="*"/>
+                <!-- Humidity Graph -->
+            </Grid.RowDefinitions>
+
+            <!-- Temperature Graph -->
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ui:TextBlock Text="Temperature" FontSize="18" Foreground="White" Margin="10"/>
+                <!-- Placeholder for actual temperature graph -->
+                <oxy:PlotView Name="TemperaturePlot" Width="400" Height="200"/>
+            </StackPanel>
+
+            <!-- Sound Graph -->
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ui:TextBlock Text="Sound" FontSize="18" Foreground="White" Margin="10"/>
+                <!-- Placeholder for actual sound graph -->
+                <oxy:PlotView Name="SoundPlot" Width="400" Height="200"/>
+            </StackPanel>
+
+            <!-- Humidity Graph -->
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ui:TextBlock Text="Humidity" FontSize="18" Foreground="White" Margin="10"/>
+                <!-- Placeholder for actual humidity graph -->
+                <oxy:PlotView Name="HumidityPlot" Width="400" Height="200"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
