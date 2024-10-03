@@ -22,7 +22,7 @@ namespace VisualShow_Admin.View
     public partial class Page_Media : Page
     {
         FTPServer_Manager ftpServer_Manager;
-        string filename;
+        string filename = "";
         public Page_Media()
         {
             InitializeComponent();
@@ -41,9 +41,6 @@ namespace VisualShow_Admin.View
             {
                 MessageBox.Show("Please select a file to upload");
             }
-
-
-
         }
 
         private void BrowseFile_Click(object sender, RoutedEventArgs e)
