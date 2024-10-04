@@ -49,6 +49,9 @@
             <!-- Upload button -->
             <ui:Button Content="Upload File" Width="150" Height="40" 
                     Background="Red" Foreground="White" Click="UploadFile_Click"/>
+
+            <ProgressBar IsIndeterminate="true" x:Name="SyncProgressBar" Value="50" Maximum="100" IsEnabled="True" Height="10" Margin="0,10,0,10" Visibility="Hidden"/>
+            <ui:TextBlock x:Name="OutputTextBox" Text="" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="20" />
         </StackPanel>
     </Grid>
 </Page>

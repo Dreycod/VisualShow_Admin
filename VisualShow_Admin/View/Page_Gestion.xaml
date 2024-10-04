@@ -33,9 +33,23 @@
 
         <!-- Editable Screen Section -->
         <Border BorderBrush="White" BorderThickness="1" Padding="10" Background="Black" Margin="10">
-            <ui:TextBlock Name="ScreenTextBlock" Text="This is a screen." 
-                          FontSize="24" Foreground="White" 
-                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListView Background="Transparent" ItemsSource="{Binding Ecrans}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="150" Height="100" Margin="5">
+                            <Border BorderBrush="LightBlue" BorderThickness="2" Padding="10">
+                                <TextBlock Text="{Binding Nom}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Border>
     </DockPanel>
 </Page>

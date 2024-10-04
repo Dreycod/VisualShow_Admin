@@ -22,12 +22,13 @@ namespace VisualShow_Admin.View
     public partial class Page_Media : Page
     {
         FTPServer_Manager ftpServer_Manager;
-        string filename = "";
+        string filename = "aLegendaryNinja.png";
         public Page_Media()
         {
             InitializeComponent();
             ftpServer_Manager = new FTPServer_Manager();
-
+            SyncProgressBar.Visibility = Visibility.Visible;
+            Task test = ftpServer_Manager.DownloadFromFTP(filename);
         }
 
         private void UploadFile_Click(object sender, RoutedEventArgs e)

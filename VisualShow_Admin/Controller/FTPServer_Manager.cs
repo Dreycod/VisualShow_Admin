@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using FluentFTP;
 
 
 namespace VisualShow_Admin.Controller
@@ -14,7 +15,16 @@ namespace VisualShow_Admin.Controller
     {
         public FTPServer_Manager()
         {
-        
+
+        }
+
+        public async Task DownloadFromFTP(string filename)
+        {
+            string ftpPath = "ftp://ftp-borne-arcade.alwaysdata.net/Images/KM103/";
+            var client = new AsyncFtpClient(ftpPath, "borne-arcade", "borne-testing");
+            client.Connect();
+            
+           // await client.DownloadDirectory(@"")
         }
 
         public void UploadToFTPServer(string filename)
@@ -23,7 +33,7 @@ namespace VisualShow_Admin.Controller
             {
                 Console.WriteLine("Local file does not exist.");
                 return;
-            }
+            }       
 
             try
             {
@@ -31,7 +41,7 @@ namespace VisualShow_Admin.Controller
                 FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpPath);
                 request.Credentials = new NetworkCredential("borne-arcade", "borne-testing");
                 request.Method = WebRequestMethods.Ftp.UploadFile;
-                request.UsePassive = true; // Set to true if needed
+                request.UsePassive = true;
 
                 using (FileStream fileStream = File.OpenRead(filename))
                 {
