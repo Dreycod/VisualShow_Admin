@@ -18,6 +18,7 @@ namespace VisualShow_Admin
     /// </summary>
     public partial class MainWindow
     {
+        DAO_mqtt dao_mqtt;
         DAO_Etages dao_etages;
         DAO_Ecrans dao_ecrans;
         DAO_Events dao_events;
@@ -30,6 +31,7 @@ namespace VisualShow_Admin
         public MainWindow()
         {
             InitializeComponent();
+            dao_mqtt = new DAO_mqtt();
             dao_etages = new DAO_Etages();
             dao_ecrans = new DAO_Ecrans();
             dao_events = new DAO_Events();
@@ -38,7 +40,7 @@ namespace VisualShow_Admin
             dao_users = new DAO_Users();
             dao_son = new DAO_Son();
             dao_temphum = new DAO_TempHum();
-
+            dao_mqtt.ConnexionBroker();
         }
         private void Border_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
