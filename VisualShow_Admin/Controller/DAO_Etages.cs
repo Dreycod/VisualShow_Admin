@@ -40,7 +40,7 @@ namespace VisualShow_Admin.Controller
             }
         }
         public async Task<Etages> GetEtageById(string id)
-                    {
+        {
             try
             {
                 HttpClient client = new HttpClient();
