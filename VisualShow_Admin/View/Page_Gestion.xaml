@@ -24,16 +24,13 @@
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
             <ui:TextBlock Text="Select Screen:" FontSize="18" Foreground="White" Margin="0,0,10,0"/>
             <ComboBox Name="ScreenComboBox" Width="200" FontSize="16" SelectionChanged="ScreenComboBox_SelectionChanged">
-                <ComboBoxItem Content="Screen 1"/>
-                <ComboBoxItem Content="Screen 2"/>
-                <ComboBoxItem Content="Screen 3"/>
-                <!-- Add more screens as needed -->
+                
             </ComboBox>
         </StackPanel>
 
         <!-- Editable Screen Section -->
         <Border BorderBrush="White" BorderThickness="1" Padding="10" Background="Black" Margin="10">
-            <ListView x:Name="LV_Ecrans" Background="Transparent" ItemsSource="{Binding ecran}">
+            <ListView x:Name="LV_Ecrans" Background="Transparent" ItemsSource="{Binding Ecrans}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
@@ -44,11 +41,11 @@
                     <DataTemplate>
                         <Button Width="150" Height="100" Margin="5">
                             <Border BorderBrush="LightBlue" BorderThickness="2" Padding="10">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding idecran}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding isOn}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding salleid_salle}" VerticalAlignment="Center" HorizontalAlignment="Center"/>,
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="TB_Name" Text="{Binding name}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TB_idecran" Background="Wheat" Text="{Binding idecran}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TB_isOn" Text="{Binding isOn}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TB_salleid" Text="{Binding salleid_salle}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                         </Button>

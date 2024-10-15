@@ -33,9 +33,26 @@ namespace VisualShow_Admin.View
 
         private async void ScreenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var ecran = await daoEcrans.GetEcranByName(ScreenComboBox.Name.ToString());
+            if (ScreenComboBox.SelectedValue != null)
+            {
+                string name = ScreenComboBox.SelectedIndex.ToString();
+                MessageBox.Show(name);
+                var ecran = await daoEcrans.GetEcranByName(name);
 
-            LV_Ecrans.DataContext = ecran;
+                // display the screen information on the listview LV_Ecran
+
+                // Clear the listview
+                LV_Ecrans.Items.Clear();
+
+                // Add ecran to ListView
+                LV_Ecrans.Items.Add(ecran.name);
+
+
+            }
+            else
+            {
+                MessageBox.Show("Please select a valid screen.");
+            }
         }
 
         private async void InitializeScreens()
