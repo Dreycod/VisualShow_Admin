@@ -29,9 +29,10 @@
                 Grid.Column="0" Grid.Row="0">
             <StackPanel>
                 <ui:TextBlock Text="Files on FTP Server" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
-                <ListView Name="ImagesControl" Height="200"/>
-                <ListView Name="VideosControl" Height="200"/>
+                <ListView Name="ImagesControl" Height="150"/>
+                <ListView Name="VideosControl" Height="150"/>
             </StackPanel>
+
         </Border>
             
         <!-- File Upload Section -->

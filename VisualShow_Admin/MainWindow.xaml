@@ -46,21 +46,21 @@
                 <ui:NavigationViewItem
                       Name="Analyse_Btn"
                   Content="Analyse"
-                  Icon="{ui:SymbolIcon Home24}"
+                  Icon="{ui:SymbolIcon Database24}"
                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"  
                   TargetPageType="{x:Type View:Page_Analyse}" Cursor="Hand"/>
                 
                 <ui:NavigationViewItem
                       Name="Gestion_Btn"
                   Content="Gestion"
-                  Icon="{ui:SymbolIcon Home24}"
+                  Icon="{ui:SymbolIcon Settings24}"
                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"  
                   TargetPageType="{x:Type View:Page_Gestion}" Cursor="Hand"/>
 
                 <ui:NavigationViewItem
                       Name="News_Btn"
                   Content="News"
-                  Icon="{ui:SymbolIcon Home24}"
+                  Icon="{ui:SymbolIcon News24}"
                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"  
                   TargetPageType="{x:Type View:Page_News}" Cursor="Hand"/>
 

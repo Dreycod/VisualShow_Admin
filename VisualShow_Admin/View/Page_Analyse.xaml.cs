@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,22 +43,57 @@ namespace VisualShow_Admin.View
         }
         public async void LoadComboBox()
         {
-            var ecrans = await daoEcrans.GetEcrans();
-            if (ecrans != null)
+            var salles = await daoSalles.GetSalles();
+            var etages = await daoEtages.GetEtages();
+
+            if (salles != null)
             {
-                int count = ecrans.Count;
+                int count = salles.Count;
 
                 for (int i = 0; i < count; i++)
                 {
-                    RoomComboBox.Items.Add(ecrans[i].name);
+                    RoomComboBox.Items.Add(salles[i].name);
+                }
+
+            }
+
+            if (etages != null)
+            {
+                int count = etages.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    EtageComboBox.Items.Add(etages[i].name);
                 }
 
             }
         }
 
+        private async void LoadTempHumValues()
+        {
+            var Salle = daoSalles.GetSalleByName(RoomComboBox.SelectedItem.ToString());
+            var TempHumList = await daoTempHum.GetTemp_Hum(Salle.Id.ToString());
+
+            var Temps = new List<double>();
+            var Hums = new List<double>();
+
+            // Loop through each TempHum object in the list and extract temperature and humidity
+            foreach (var tempHum in TempHumList)
+            {
+                Temps.Add(Double.Parse(tempHum.temperature));
+                Hums.Add(Double.Parse(tempHum.humidite));
+            }
+
+        }
+
         private void RoomComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var TempHum = daoTempHum.GetTemp_Hum(RoomComboBox.SelectedItem.ToString());
+            LoadTempHumValues();
+
+        }
+
+        private void EtageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }

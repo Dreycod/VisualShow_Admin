@@ -20,17 +20,11 @@
             <!-- Graphs panel -->
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Room selection -->
-            <RowDefinition Height="*"/>
-            <!-- Graphs display -->
-        </Grid.RowDefinitions>
 
         <!-- Room Selection Section -->
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="20">
             <ui:TextBlock Text="Etage:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
-            <ComboBox Name="EtageComboBox" Width="200" FontSize="16" SelectionChanged="RoomComboBox_SelectionChanged"/>
+            <ComboBox Name="EtageComboBox" Width="200" FontSize="16" SelectionChanged="EtageComboBox_SelectionChanged"/>
             <ui:TextBlock Text="Salle:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
             <ComboBox Name="RoomComboBox" Width="200" FontSize="16" SelectionChanged="RoomComboBox_SelectionChanged"/>
         </StackPanel>
@@ -50,21 +44,21 @@
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:TextBlock Text="Temperature" FontSize="18" Foreground="White" Margin="10"/>
                 <!-- Placeholder for actual temperature graph -->
-                <oxy:PlotView Name="TemperaturePlot" Width="400" Height="200"/>
+                <oxy:PlotView Name="TemperaturePlot" Width="400" Height="100"/>
             </StackPanel>
 
             <!-- Sound Graph -->
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:TextBlock Text="Sound" FontSize="18" Foreground="White" Margin="10"/>
                 <!-- Placeholder for actual sound graph -->
-                <oxy:PlotView Name="SoundPlot" Width="400" Height="200"/>
+                <oxy:PlotView Name="SoundPlot" Width="400" Height="100"/>
             </StackPanel>
 
             <!-- Humidity Graph -->
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ui:TextBlock Text="Humidity" FontSize="18" Foreground="White" Margin="10"/>
                 <!-- Placeholder for actual humidity graph -->
-                <oxy:PlotView Name="HumidityPlot" Width="400" Height="200"/>
+                <oxy:PlotView Name="HumidityPlot" Width="400" Height="100"/>
             </StackPanel>
         </Grid>
     </Grid>
