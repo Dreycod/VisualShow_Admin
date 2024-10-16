@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VisualShow_Admin.Controller;
 
 namespace VisualShow_Admin.View
 {
@@ -20,14 +21,31 @@ namespace VisualShow_Admin.View
     /// </summary>
     public partial class Page_Gestion : Page
     {
+        DAO_Ecrans daoEcrans;
         public Page_Gestion()
         {
             InitializeComponent();
+             daoEcrans = new DAO_Ecrans();
+            LoadComboBox();
         }
 
+        public async void LoadComboBox()
+        {
+            var ecrans = await daoEcrans.GetEcrans();
+            if (ecrans != null)
+            {
+                int count = ecrans.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    ScreenComboBox.Items.Add(ecrans[i].name);
+                }
+
+            }
+        }
         private void ScreenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+           
         }
     }
 }

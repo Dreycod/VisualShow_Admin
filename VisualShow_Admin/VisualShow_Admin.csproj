@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="Ressources\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

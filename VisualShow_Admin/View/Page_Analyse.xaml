@@ -30,12 +30,8 @@
         <!-- Room Selection Section -->
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="20">
             <ui:TextBlock Text="Select Room to Supervise:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
-            <ComboBox Name="RoomComboBox" Width="200" FontSize="16">
-                <ComboBoxItem Content="Living Room"/>
-                <ComboBoxItem Content="Bedroom"/>
-                <ComboBoxItem Content="Kitchen"/>
-                <!-- Add more rooms as needed -->
-            </ComboBox>
+            <ComboBox Name="RoomComboBox" Width="200" FontSize="16" SelectionChanged="RoomComboBox_SelectionChanged"/>
+
         </StackPanel>
 
         <!-- Graphs Section -->

@@ -23,12 +23,8 @@
         <!-- Screen Selection Section -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
             <ui:TextBlock Text="Select Screen:" FontSize="18" Foreground="White" Margin="0,0,10,0"/>
-            <ComboBox Name="ScreenComboBox" Width="200" FontSize="16" SelectionChanged="ScreenComboBox_SelectionChanged">
-                <ComboBoxItem Content="Screen 1"/>
-                <ComboBoxItem Content="Screen 2"/>
-                <ComboBoxItem Content="Screen 3"/>
-                <!-- Add more screens as needed -->
-            </ComboBox>
+            <ComboBox Name="ScreenComboBox" Width="200" FontSize="16" SelectionChanged="ScreenComboBox_SelectionChanged"/>
+
         </StackPanel>
 
         <!-- Editable Screen Section -->

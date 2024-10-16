@@ -29,16 +29,19 @@
                 Grid.Column="0" Grid.Row="0">
             <StackPanel>
                 <ui:TextBlock Text="Files on FTP Server" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
-                <ListBox Name="FilesListBox" Background="Black" Foreground="White" BorderThickness="0"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <!-- Files from FTP server will be dynamically added here -->
-                </ListBox>
+                <ListView Name="ImagesControl" Height="200"/>
+                <ListView Name="VideosControl" Height="200"/>
             </StackPanel>
         </Border>
-
+            
         <!-- File Upload Section -->
-        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top">
-            <ui:TextBlock Text="Upload a File to FTP Server" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Margin="0,10,0,0">
+            <ui:TextBlock Text="Select the desired Screen" FontSize="18" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+            <ComboBox Grid.Column="1" Name="ScreenComboBox" Width="200" FontSize="16" SelectionChanged="ScreenComboBox_SelectionChanged"/>
+            
+            
+            <ui:TextBlock Text="Upload a File to FTP Server" FontSize="18" Foreground="White" Margin="0,20,0,10"/>
 
             <!-- File path input and browse button -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
@@ -53,5 +56,6 @@
             <ProgressBar IsIndeterminate="true" x:Name="SyncProgressBar" Value="50" Maximum="100" IsEnabled="True" Height="10" Margin="0,10,0,10" Visibility="Hidden"/>
             <ui:TextBlock x:Name="OutputTextBox" Text="" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" FontSize="20" />
         </StackPanel>
+
     </Grid>
 </Page>
