@@ -29,9 +29,10 @@
 
         <!-- Room Selection Section -->
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="20">
-            <ui:TextBlock Text="Select Room to Supervise:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+            <ui:TextBlock Text="Etage:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+            <ComboBox Name="EtageComboBox" Width="200" FontSize="16" SelectionChanged="RoomComboBox_SelectionChanged"/>
+            <ui:TextBlock Text="Salle:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
             <ComboBox Name="RoomComboBox" Width="200" FontSize="16" SelectionChanged="RoomComboBox_SelectionChanged"/>
-
         </StackPanel>
 
         <!-- Graphs Section -->

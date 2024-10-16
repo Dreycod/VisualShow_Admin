@@ -23,6 +23,8 @@ namespace VisualShow_Admin.View
     public partial class Page_Analyse : Page
     {
         DAO_Ecrans daoEcrans;
+        DAO_Salles daoSalles;
+        DAO_Etages daoEtages;
         DAO_Air daoAir;
         DAO_TempHum daoTempHum;
 
@@ -32,6 +34,9 @@ namespace VisualShow_Admin.View
             daoEcrans = new DAO_Ecrans();
             daoAir = new DAO_Air();
             daoTempHum = new DAO_TempHum();
+            daoSalles = new DAO_Salles();
+            daoEtages = new DAO_Etages();
+            daoAir = new DAO_Air();
             LoadComboBox();
         }
         public async void LoadComboBox()
