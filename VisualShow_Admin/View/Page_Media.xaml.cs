@@ -15,6 +15,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using VisualShow_Admin.Controller;
 using System.IO;
+using System.Collections.ObjectModel;
+
+using System.Net;
+
+
 namespace VisualShow_Admin.View
 {
     /// <summary>
@@ -22,14 +27,14 @@ namespace VisualShow_Admin.View
     /// </summary>
     public partial class Page_Media : Page
     {
-        FTPServer_Manager ftpServer_Manager;
-        string filename = "aLegendaryNinja.png";
+        public ObservableCollection<ImageItem> Images { get; set; } = new ObservableCollection<ImageItem>();
         DAO_Ecrans daoEcrans;
+        string filename = null;
         public Page_Media()
         {
             InitializeComponent();
-            ftpServer_Manager = new FTPServer_Manager();
             daoEcrans = new DAO_Ecrans();
+            ImagesControl.ItemsSource = Images; // Bind ImagesControl to the ObservableCollection
             LoadComboBox();
         }
 
@@ -113,119 +118,218 @@ namespace VisualShow_Admin.View
                     ScreenComboBox.Items.Add(ecrans[i].name);
                 }
             }
-
-            
         }
+
+        private void UploadToFTPServer(string filePath)
+        {
+            string ftpUrl = "ftp://ftp-borne-arcade.alwaysdata.net/Images/" + ScreenComboBox.SelectedItem.ToString() + "/";
+            string username = "borne-arcade";
+            string password = "borne-testing";
+
+            string fileName = System.IO.Path.GetFileName(filePath);
+            string ftpFullUrl = ftpUrl + fileName;
+
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpFullUrl);
+            request.Method = WebRequestMethods.Ftp.UploadFile;
+            request.Credentials = new NetworkCredential(username, password);
+            request.UsePassive = true; // Enable passive mode
+
+            try
+            {
+                byte[] fileContents = File.ReadAllBytes(filePath);
+                if (fileContents.Length == 0)
+                {
+                    MessageBox.Show("Error: File is empty or unreadable.");
+                    return;
+                }
+
+                request.ContentLength = fileContents.Length;
+
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(fileContents, 0, fileContents.Length);
+                }
+
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    // Check the status code
+                    if (response.StatusCode == FtpStatusCode.ClosingData)
+                    {
+                        MessageBox.Show("Upload complete!");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Upload failed: {response.StatusDescription}");
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                FtpWebResponse response = (FtpWebResponse)ex.Response;
+                MessageBox.Show($"Error uploading file: {response.StatusDescription}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"General error: {ex.Message}");
+            }
+        }
+
 
         private void UploadFile_Click(object sender, RoutedEventArgs e)
         {
-            // communicate with FTP server using settings from the settings view page
-            SyncProgressBar.Visibility = Visibility.Visible;
             if (filename != null)
             {
-                ftpServer_Manager.UploadToFTPServer(filename);
-                SyncProgressBar.Visibility = Visibility.Hidden;
+                SyncProgressBar.Visibility = Visibility.Visible; // Afficher la barre de progression
+                // Appel de la méthode pour uploader le fichier vers le serveur FTP
+                UploadToFTPServer(FilePathTextBox.Text);
+                SyncProgressBar.Visibility = Visibility.Hidden; // Cacher la barre de progression après l'upload
             }
             else
             {
-                MessageBox.Show("Please select a file to upload");
+                MessageBox.Show("Please select a file to upload."); // Alerte si aucun fichier n'est sélectionné
             }
         }
 
         private void BrowseFile_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".jpg, .png";
-            dlg.Filter = "Image Files (*.jpg, *.png)|*.jpg;*.png";
-            Nullable<bool> result = dlg.ShowDialog();
+            dlg.DefaultExt = ".jpg"; // Extension par défaut
+            dlg.Filter = "Image Files (*.jpg;*.png)|*.jpg;*.png"; // Types de fichiers autorisés
 
-            filename = dlg.FileName;
-            FilePathTextBox.Text = filename;
-            MessageBox.Show(filename);
+            bool? result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                filename = dlg.FileName; // Stocker le chemin du fichier sélectionné
+                FilePathTextBox.Text = filename; // Afficher le chemin dans une TextBox
+                MessageBox.Show($"Selected file: {filename}"); // Afficher un message de confirmation
+            }
         }
-        
-        public async Task<List<string>> GetFtpFiles()
+        private void DeleteImage_Click(object sender, RoutedEventArgs e)
         {
-            List<string> fileContents = await ftpServer_Manager.ListFilesFromFTP();
-            return fileContents;
+            // Find the selected image to delete
+            var button = sender as Button;
+            var imageItem = button.DataContext as ImageItem;
+
+            if (imageItem != null)
+            {
+                string ftpUrl = "ftp://ftp-borne-arcade.alwaysdata.net/Images/" + ScreenComboBox.SelectedItem.ToString() + "/" + imageItem.FileName;
+                string username = "borne-arcade";
+                string password = "borne-testing";
+
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
+                request.Method = WebRequestMethods.Ftp.DeleteFile;
+                request.Credentials = new NetworkCredential(username, password);
+
+                try
+                {
+                    using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                    {
+                        if (response.StatusCode == FtpStatusCode.FileActionOK)
+                        {
+                            // Remove the image from the ObservableCollection
+                            Images.Remove(imageItem);
+                            MessageBox.Show("Image deleted successfully.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting image: {ex.Message}");
+                }
+            }
+        }
+
+        private void OnImage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnVideo_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private async void ScreenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Images.Clear();
             string selectedScreen = ScreenComboBox.SelectedItem.ToString();
-            LoadMediaForClasse(selectedScreen);
+            LoadFtpImages();
         }
 
-        private async Task LoadMediaForClasse(string nomSalle)
+        // List and download images from the FTP server
+        private void LoadFtpImages()
         {
-            string ftpBaseUrl = "/Images/"; // Relative FTP path for the media directory
-            string salleUrl = $"{ftpBaseUrl}{nomSalle}/";
+            string ftpUrl = "ftp://ftp-borne-arcade.alwaysdata.net/Images/"+ ScreenComboBox.SelectedItem.ToString()+"/";
+            string username = "borne-arcade";
+            string password = "borne-testing";
 
-            List<string> availableFiles = new List<string>();
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
+            request.Method = WebRequestMethods.Ftp.ListDirectory;
+            request.Credentials = new NetworkCredential(username, password);
 
             try
             {
-                // Connect to the FTP server and list available files
-                using (var client = new AsyncFtpClient("ftp-borne-arcade.alwaysdata.net", "borne-arcade", "borne-testing"))
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    await client.Connect();
-                    var items = await client.GetListing(salleUrl);
-
-                    // Filter out directories and invalid file names
-                    availableFiles = items
-                        .Where(item => item.Type == FtpObjectType.File &&
-                                       !string.IsNullOrWhiteSpace(item.Name) &&
-                                       item.Name != "." && item.Name != "..")
-                        .Select(item => item.Name)
-                        .ToList();
-
-                    if (availableFiles.Count == 0)
+                    string fileName;
+                    while ((fileName = reader.ReadLine()) != null)
                     {
-                        MessageBox.Show("Aucun fichier disponible pour la salle sélectionnée.");
-                        ImagesControl.ItemsSource = null;
-                        VideosControl.ItemsSource = null;
-                        return;
-                    }
+                        string fileUrl = ftpUrl + fileName;
+                        BitmapImage image = DownloadImage(fileUrl, username, password);
 
-                    // Filter and categorize media files (images and videos)
-                    List<MediaItem> mediaItems = availableFiles
-                        .Where(fileName => new[] { ".png", ".jpg", ".jpeg", ".bmp", ".gif", ".mp4", ".avi", ".mov", ".wmv" }
-                        .Contains(Path.GetExtension(fileName).ToLower()))
-                        .Select(fileName =>
+                        if (image != null)
                         {
-                            string fileUrl = $"{salleUrl}{fileName}";  // Construct FTP file path
-                            return new MediaItem(fileUrl, nomSalle, client);
-                        })
-                        .ToList();
-
-                    if (mediaItems.Count == 0)
-                    {
-                        MessageBox.Show("Aucun fichier valide disponible.");
-                        ImagesControl.ItemsSource = null;
-                        VideosControl.ItemsSource = null;
-                        return;
+                            Images.Add(new ImageItem { FileName = fileName, ImageSource = image });
+                        }
                     }
-
-                    // Separate images and videos and set them to the controls
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        var images = mediaItems.Where(m => new[] { ".png", ".jpg", ".jpeg", ".bmp", ".gif" }.Contains(Path.GetExtension(m.FileUrl).ToLower())).ToList();
-                        var videos = mediaItems.Where(m => new[] { ".mp4", ".avi", ".mov", ".wmv" }.Contains(Path.GetExtension(m.FileUrl).ToLower())).ToList();
-
-                       
-                        ImagesControl.ItemsSource = images;
-                        VideosControl.ItemsSource = videos;
-                    });
-
-                    await client.Disconnect();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors du chargement des fichiers : {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
 
+        // Download an image from FTP
+        private BitmapImage DownloadImage(string ftpUrl, string username, string password)
+        {
+            try
+            {
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrl);
+                request.Method = WebRequestMethods.Ftp.DownloadFile;
+                request.Credentials = new NetworkCredential(username, password);
 
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                using (Stream responseStream = response.GetResponseStream())
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    responseStream.CopyTo(ms);
+                    ms.Position = 0;
+
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = ms;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.EndInit();
+
+                    return image;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error downloading image: {ex.Message}");
+                return null;
+            }
+        }
     }
+
+    // Class to hold the image source
+    public class ImageItem
+    {
+        public string FileName { get; set; } // Propriété pour stocker le nom du fichier
+        public BitmapImage ImageSource { get; set; }
+    }
+
 }
