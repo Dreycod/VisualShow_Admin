@@ -14,7 +14,7 @@ namespace VisualShow_Admin.Controller
 {
     public class DAO_mqtt
     {
-        string brokerAddress = "172.31.254.87";
+        string brokerAddress = "raspberrypimatheo1";
         int brokerPort = 1883;
         string username = "matheo";
         string password = "matheo";
