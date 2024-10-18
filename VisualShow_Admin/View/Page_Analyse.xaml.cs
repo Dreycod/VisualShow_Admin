@@ -45,6 +45,7 @@ namespace VisualShow_Admin.View
         {
             var salles = await daoSalles.GetSalles();
             var etages = await daoEtages.GetEtages();
+            var ecrans = await daoEcrans.GetEcrans();
 
             if (salles != null)
             {
@@ -67,23 +68,27 @@ namespace VisualShow_Admin.View
                 }
 
             }
+
+            if (ecrans != null)
+            {
+                int count = ecrans.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    ScreenComboBox.Items.Add(ecrans[i].name);
+                }
+            }
         }
 
         private async void LoadTempHumValues()
         {
-            var Salle = daoSalles.GetSalleByName(RoomComboBox.SelectedItem.ToString());
+            var Salle = daoSalles.GetSalleByName(ScreenComboBox.SelectedItem.ToString());
             var TempHumList = await daoTempHum.GetTemp_Hum(Salle.Id.ToString());
 
             var Temps = new List<double>();
             var Hums = new List<double>();
 
-            // Loop through each TempHum object in the list and extract temperature and humidity
-            foreach (var tempHum in TempHumList)
-            {
-                Temps.Add(Double.Parse(tempHum.temperature));
-                Hums.Add(Double.Parse(tempHum.humidite));
-            }
-
+           
         }
 
         private void RoomComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

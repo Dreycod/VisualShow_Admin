@@ -31,16 +31,16 @@
                 <ui:TextBlock Text="Broadcasted Messages" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
                 <ListBox Name="MessagesListBox" Background="Black" Foreground="White" BorderThickness="0"
                          ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <!-- Example of a broadcasted message -->
-                    <ListBoxItem Content="Message 1: Emergency alert!" FontSize="14" Foreground="White"/>
-                    <ListBoxItem Content="Message 2: Maintenance update" FontSize="14" Foreground="White"/>
-                    <!-- Messages will be dynamically added here -->
                 </ListBox>
             </StackPanel>
         </Border>
 
         <!-- Message Input Section -->
         <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Background="Black">
+            <ui:TextBlock Text="Select the desired Screen" FontSize="18" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+            <ComboBox Grid.Column="1" Name="ScreenComboBox" Width="200" FontSize="16" SelectionChanged="ScreenComboBox_SelectionChanged"/>
+            
             <ui:TextBlock Text="Write a new broadcast message" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
 
             <!-- Textbox for inputting new messages -->

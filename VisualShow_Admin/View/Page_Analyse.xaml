@@ -27,6 +27,9 @@
             <ComboBox Name="EtageComboBox" Width="200" FontSize="16" SelectionChanged="EtageComboBox_SelectionChanged"/>
             <ui:TextBlock Text="Salle:" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
             <ComboBox Name="RoomComboBox" Width="200" FontSize="16" SelectionChanged="RoomComboBox_SelectionChanged"/>
+            <ui:TextBlock Text="Screen:" FontSize="18" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Left"/>
+
+            <ComboBox Grid.Column="1" Name="ScreenComboBox" Width="200" FontSize="16" SelectionChanged="ScreenComboBox_SelectionChanged"/>
         </StackPanel>
 
         <!-- Graphs Section -->
