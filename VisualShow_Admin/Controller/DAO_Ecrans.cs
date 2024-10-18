@@ -62,7 +62,7 @@ namespace VisualShow_Admin.Controller
                 return null;
             }
         }
-        public async Task<Ecrans> GetEcranByName(string name)
+        public async Task<List<Ecrans>> GetEcranByName(string name)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace VisualShow_Admin.Controller
                         MessageBox.Show("Error: " + content);
                         return null;
                     }
-                    Ecrans ecran = JsonConvert.DeserializeObject<Ecrans>(content);
+                    List<Ecrans> ecran = JsonConvert.DeserializeObject<List<Ecrans>>(content);
                     return ecran;
 
                 }
@@ -84,6 +84,7 @@ namespace VisualShow_Admin.Controller
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return null;
             }
         }

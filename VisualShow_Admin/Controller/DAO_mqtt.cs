@@ -40,7 +40,6 @@ namespace VisualShow_Admin.Controller
             try
             {
                 await clientmqtt.ConnectAsync(parametres_mqtt);
-                MessageBox.Show("Connexion au broker MQTT réussie", "Connexion", MessageBoxButton.OK);
             }
             catch (Exception)
             {

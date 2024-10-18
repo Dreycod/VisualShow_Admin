@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VisualShow_Admin.Controller;
+using VisualShow_Admin.Model;
 
 namespace VisualShow_Admin.View
 {
@@ -28,6 +32,7 @@ namespace VisualShow_Admin.View
         DAO_Salles daoSalles;
         DAO_Etages daoEtages;
         DAO_Air daoAir;
+        DAO_Son daoSon;
         DAO_TempHum daoTempHum;
 
         public Page_Analyse()
@@ -39,6 +44,7 @@ namespace VisualShow_Admin.View
             daoSalles = new DAO_Salles();
             daoEtages = new DAO_Etages();
             daoAir = new DAO_Air();
+            daoSon = new DAO_Son(); 
             LoadComboBox();
         }
         public async void LoadComboBox()
@@ -80,26 +86,52 @@ namespace VisualShow_Admin.View
             }
         }
 
-        private async void LoadTempHumValues()
+        private async void LoadGraphics(string name)
         {
-            var Salle = daoSalles.GetSalleByName(ScreenComboBox.SelectedItem.ToString());
-            var TempHumList = await daoTempHum.GetTemp_Hum(Salle.Id.ToString());
 
-            var Temps = new List<double>();
-            var Hums = new List<double>();
+            var Ecran = await daoEcrans.GetEcranByName(name);
 
-           
+            if (Ecran != null)
+            {
+                var TempHumList = await daoTempHum.GetTemp_Hum(Ecran[0].idecran.ToString());
+
+                var temperatureViewModel = new TemperatureViewModel(TempHumList, true); // Use 'false' for Min Temperature
+
+                TemperaturePlot.Visibility = Visibility.Visible;
+                TemperaturePlot.Model = temperatureViewModel.TemperaturePlot;
+
+                var SoundList = await daoSon.GetSon(Ecran[0].idecran.ToString());   
+
+                var soundViewModel = new SonViewModel(SoundList); 
+                SoundPlot.Visibility = Visibility.Visible;
+                SoundPlot.Model = soundViewModel.SonPlot;
+
+                var humiditeViewModel = new HumidityViewModel(TempHumList);
+                HumidityPlot.Visibility = Visibility.Visible;
+                HumidityPlot.Model = humiditeViewModel.HumidityPlot;
+
+                var AirList = await daoAir.GetAir(Ecran[0].idecran.ToString()); 
+                AirPlot.Visibility = Visibility.Visible;
+                AirPlot.Model = new AirViewModel(AirList).AirPlot;
+            }
         }
 
         private void RoomComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadTempHumValues();
+           
 
         }
 
         private void EtageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ScreenComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string ecran_name = ScreenComboBox.SelectedItem.ToString();
+
+            LoadGraphics(ecran_name);
         }
     }
 }
