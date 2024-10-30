@@ -21,11 +21,13 @@ namespace VisualShow_Admin.Controller
         string clientId = Guid.NewGuid().ToString();
         IMqttClient clientmqtt;
 
+        public Action<bool> ConnectionStatusChanged;
+
         public async void ConnexionBroker()
         {
             //constructeur de la connexion
             var mqttnet = new MqttFactory();
-            //creation du client
+            //client
             clientmqtt = mqttnet.CreateMqttClient();
 
             //constructeur des paramètres de connexion
@@ -39,11 +41,11 @@ namespace VisualShow_Admin.Controller
             try
             {
                 await clientmqtt.ConnectAsync(parametres_mqtt);
-                MessageBox.Show("Connexion au broker MQTT réussie", "Connexion", MessageBoxButton.OK);
+                ConnectionStatusChanged?.Invoke(true);
             }
             catch (Exception)
             {
-                MessageBox.Show("Connexion au broker MQTT échouée", "Connexion", MessageBoxButton.OK);
+                ConnectionStatusChanged?.Invoke(false);
             }
             return;
         }

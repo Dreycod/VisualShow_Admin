@@ -25,8 +25,7 @@
         </Grid.RowDefinitions>
 
         <!-- Message Display Section -->
-        <Border BorderBrush="White" BorderThickness="1" Padding="10" Margin="10" Background="Black"
-                Grid.Column="0" Grid.Row="0">
+        <Border BorderBrush="White" BorderThickness="1" Padding="10" Margin="10" Background="Black" Grid.Column="0" Grid.Row="0">
             <StackPanel>
                 <ui:TextBlock Text="Broadcasted Messages" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
                 <ListBox Name="MessagesListBox" Background="Black" Foreground="White" BorderThickness="0"
@@ -41,19 +40,36 @@
 
         <!-- Message Input Section -->
         <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Background="Black">
-            <ui:TextBlock Text="Write a new broadcast message" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
+            <ui:TextBlock Text="Select the desired Screen" FontSize="18" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+            <ComboBox Grid.Column="1" Name="ScreenComboBox" Width="200" FontSize="16" SelectionChanged="ScreenComboBox_SelectionChanged"/>
+            
+            <ui:TextBlock Text="Write a new broadcast message" FontSize="18" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
 
             <!-- Textbox for inputting new messages -->
             <TextBox Name="MessageInput" AcceptsReturn="True" Background="Black" Foreground="White"
                      FontFamily="Consolas" FontSize="14" Height="100" Width="300" TextWrapping="Wrap"/>
 
             <!-- Warning message -->
-            <ui:TextBlock Text="Warning: This message will be seen by multiple people!" 
-                          FontSize="14" Foreground="Red" Margin="0,10,0,10"/>
+            <ui:TextBlock Text="Warning : Messages will be seen by several people!" FontSize="14" Foreground="Red" Margin="0,10,0,10" HorizontalAlignment="Center"/>
 
             <!-- Submit Button -->
-            <Button Content="Broadcast Message" Width="150" Height="40" 
-                    Background="Red" Foreground="White" Click="BroadcastMessage_Click"/>
+            <Button Content="Broadcast Message" Width="150" Height="40" Background="Red" Foreground="White" Click="BroadcastMessage_Click" HorizontalAlignment="Center"/>
+
+            <ui:TextBlock Text="Emergency alerts" FontSize="14" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center"/>
+            <Button Content="Fire Alert" Width="125" Height="40" Background="Red" Foreground="White" Click="FireAlert_Click" HorizontalAlignment="Center"/>
+            <Button Content="Intruder Alert" Width="125" Height="40" Background="Red" Foreground="White" Click="IntruderAlert_Click" HorizontalAlignment="Center"/>
+            <Button Content="General Alert" Width="125" Height="40" Background="Red" Foreground="White" Click="GeneralEmergency_Click" HorizontalAlignment="Center"/>
         </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" Background="Black" >
+            <Grid>
+                <Rectangle x:Name="ConnectionStatusIndicator" Width="20" Height="20" Fill="Gray" Margin="75,10,135,9"/>
+                <ui:TextBlock x:Name="Statut" Text="Broker connection status :" FontSize="14" Foreground="White" Margin="10,10,0,10" HorizontalAlignment="Left"/>
+                <ui:TextBlock Text="Red = Failed" FontSize="14" Foreground="Red" Margin="10,10,10,10" HorizontalAlignment="Right"/>
+                <ui:TextBlock Text="Green = Succeded" FontSize="14" Foreground="Green" Margin="10,10,100,10" HorizontalAlignment="Right"/>
+            </Grid>
+        </StackPanel>
+            
     </Grid>
 </Page>
