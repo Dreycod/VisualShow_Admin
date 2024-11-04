@@ -66,26 +66,14 @@ namespace VisualShow_Admin.View
         //broadcast d'alerte incendie
         private void FireAlert_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (ScreenComboBox.SelectedItem != null)
                 {
-                    string cheminTopic = ScreenComboBox.SelectedItem.ToString() + "/emergency";
+                    string cheminTopic = "KM103/emergency";
                     string message = "FireAlert";
                     prout.PublishTopicMessage(cheminTopic, message);
                     ListBoxItem machin = new ListBoxItem();
                     machin.Content = "Fire Alert issued";
                     MessagesListBox.Items.Add(machin);
                 }
-                else
-                {
-                    MessageBox.Show("Please select a screen to sent the message to", "Error, no screen selected", MessageBoxButton.OK);
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("An unexpected error occurred", "Error", MessageBoxButton.OK);
-            }
         }
 
 
