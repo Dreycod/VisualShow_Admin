@@ -24,12 +24,29 @@ namespace VisualShow_Admin.View
     public partial class Page_News : Page
     {
         DAO_mqtt prout = new DAO_mqtt();
+        DAO_Ecrans daoEcrans = new DAO_Ecrans();
 
         public Page_News()
         {
             InitializeComponent();
             prout.ConnectionStatusChanged += UpdateConnectionStatus;
             prout.ConnexionBroker();
+            LoadComboBox();
+        }
+
+
+        public async void LoadComboBox()
+        {
+            var ecrans = await daoEcrans.GetEcrans();
+            if (ecrans != null)
+            {
+                int count = ecrans.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    ScreenComboBox.Items.Add(ecrans[i].name);
+                }
+            }
         }
 
         public void BroadcastMessage_Click(object sender, RoutedEventArgs e)
@@ -67,7 +84,7 @@ namespace VisualShow_Admin.View
         private void FireAlert_Click(object sender, RoutedEventArgs e)
         {
                 {
-                    string cheminTopic = "KM103/emergency";
+                    string cheminTopic = ScreenComboBox.SelectedItem.ToString() + "/emergency";
                     string message = "FireAlert";
                     prout.PublishTopicMessage(cheminTopic, message);
                     ListBoxItem machin = new ListBoxItem();
