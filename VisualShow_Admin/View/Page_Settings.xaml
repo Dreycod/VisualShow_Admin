@@ -26,24 +26,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="0" Text="Utilisateur"  Width="120" Margin="10"/>
-            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="1" Text="Mot de passe" Width="120" Margin="10" />
-            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"   Grid.Row="2" Text="FTP Server" Width="120" Margin="10"/>
-            <ui:TextBlock FontTypography="BodyStrong" Foreground= "{ui:ThemeResource TextFillColorPrimaryBrush}"  Grid.Row="3" Text="Dossier Local" Width="120" Margin="10"/>
-
-            <ui:TextBox Grid.Row="0" Grid.Column = "1" HorizontalAlignment="Left"   x:Name="TB_Utilisateur" PlaceholderText="Ex: utilisateur" Width="300" Margin="10"/>
-            <ui:PasswordBox Grid.Row="1" Grid.Column = "1" HorizontalAlignment="Left" x:Name="PB_Mdp" PlaceholderText="Ex: Mdp" Width="300" Margin="10" />
-            <ui:TextBox Grid.Row="2" Grid.Column = "1" HorizontalAlignment="Left" x:Name="TB_FtpServer" PlaceholderText="Ex: ftp.example.hosting.ovh.net" Width="300" Margin="10"/>
-
-            <StackPanel Grid.Row="3" Grid.Column = "1" Margin="10" Orientation="Horizontal">
-                <ui:Button Content="Browse..."  HorizontalAlignment="Left"  Width="100"/>
-                <ui:TextBox Grid.Column = "1" HorizontalAlignment="Left" x:Name="TB_DossierSource" PlaceholderText="Ex: C:\Users\" Width="300" Margin="10,0,0,0"/>
-            </StackPanel>
-
 
         </Grid>
 
-        <ui:Button x:Name="Save_Btn" HorizontalAlignment="Center" Content="Save"  />
 
         <ui:TextBlock
            Margin="0,24,0,8"
@@ -85,7 +70,6 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Remplissez Les champs suivants pour pouvoir utiliser l'application" />
                 </Grid>
                 <ui:Anchor
                    Margin="0"

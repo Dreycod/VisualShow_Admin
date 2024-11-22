@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,11 @@ namespace VisualShow_Admin.Controller
         string password = "matheo";
         string clientId = Guid.NewGuid().ToString();
         IMqttClient clientmqtt;
-
         public Action<bool> ConnectionStatusChanged;
-
         public async void ConnexionBroker()
         {
             //constructeur de la connexion
             var mqttnet = new MqttFactory();
-            //client
             clientmqtt = mqttnet.CreateMqttClient();
 
             //constructeur des paramètres de connexion
@@ -69,4 +67,3 @@ namespace VisualShow_Admin.Controller
             return Task.CompletedTask;
         }
     }
-}

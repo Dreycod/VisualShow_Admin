@@ -30,10 +30,6 @@
                 <ui:TextBlock Text="Broadcasted Messages" FontSize="18" Foreground="White" Margin="0,0,0,10"/>
                 <ListBox Name="MessagesListBox" Background="Black" Foreground="White" BorderThickness="0"
                          ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <!-- Example of a broadcasted message -->
-                    <ListBoxItem Content="Message 1: Emergency alert!" FontSize="14" Foreground="White"/>
-                    <ListBoxItem Content="Message 2: Maintenance update" FontSize="14" Foreground="White"/>
-                    <!-- Messages will be dynamically added here -->
                 </ListBox>
             </StackPanel>
         </Border>

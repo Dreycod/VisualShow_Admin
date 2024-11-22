@@ -12,10 +12,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <!-- Adjust the width as needed -->
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="*"/>
@@ -28,17 +27,15 @@
 
         <!-- Welcome Message -->
         <ui:TextBlock FontTypography="BodyStrong" Foreground="White" 
-                      Grid.Row="0" Grid.Column="1" Text="Welcome, André!" 
+                      Grid.Row="0" Grid.Column="1" Text="Welcome, User!" 
                       FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <!-- Weather Information -->
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
-                <ui:TextBlock FontTypography="Body" Foreground="White" 
-                              Text="Today's Weather:" FontSize="18"/>
-                <ui:TextBlock FontTypography="Body" Foreground="White" 
-                              Text="Fetching weather data..." FontSize="16" Name="WeatherTextBlock"/>
-            </StackPanel>
+            <ui:TextBlock FontTypography="Body" Foreground="White" Text="This is the admin dashboard, here you can edit every screen's data, use it with caution." FontSize="18" HorizontalAlignment="Center"/>
         </Grid>
+
+        <ui:TextBlock TextAlignment="Justify" Grid.Row="2" TextWrapping="Wrap" Margin="20" Foreground="White" Text="In this application, you can easily customize and manage your Smart Display project. Navigate through the tabs such as Accueil, Analyse, Gestion, Media, and News to perform various tasks, like sending messages and monitoring different aspects of your project.
+ Additionally, you can modify the settings to suit your preferences by using the Settings tab, allowing you to fine-tune the parameters and features of the application to your specific needs." FontSize="18" Name="WeatherTextBlock"/>
     </Grid>
 </Page>
